@@ -1,0 +1,42 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# IntershopRAG: Security — credentials (NEVER commit these)
+creds.txt
+
+# IntershopRAG: Scraper state checkpoint (contains runtime URL status, not source code)
+scrape_state.json
+
+# IntershopRAG: Local data directory (raw Markdown + ChromaDB vector store)
+# These directories are large and machine-specific
+data/
+!data/raw_md/.gitkeep
+!data/vectordb/.gitkeep
+
+# Streamlit runtime files
+.streamlit/*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/settings.json
+.idea/
+*.swp
+
+# Debug/Temp files
+playwright_error_auth.*
+full_pytest.txt
+pytest_error*
+pytest_results.txt
+tmp_*.txt
+.gemini/

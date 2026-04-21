@@ -1,0 +1,26 @@
+# IntershopRAG - Centralized Project Configuration
+# All paths are relative to the project root unless otherwise noted.
+# Update placeholder values before running the pipeline.
+
+# --- Scraper Configuration ---
+start_url: "https://knowledge.intershop.com/"
+sitemap_url: "https://knowledge.intershop.com/sitemap.xml"
+
+# --- Async Fetcher Configuration ---
+max_concurrent_workers: 5   # asyncio.Semaphore limit (3–5 recommended)
+max_retries: 3              # HTTP retry attempts before marking a URL as failed
+
+# --- Paths ---
+raw_md_path: "data/raw_md"
+chroma_db_path: "data/vectordb"
+scrape_state_path: "scrape_state.json"
+creds_path: "creds.txt"
+
+# --- Ollama / LLM Configuration ---
+ollama_port: 11434
+ollama_model: "qwen2.5:7b"
+embedding_model: "nomic-embed-text"
+
+# --- Vector Ingestion / Chunking ---
+chunk_size: 2000
+chunk_overlap: 200

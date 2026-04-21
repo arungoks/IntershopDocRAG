@@ -1,0 +1,20 @@
+[theme]
+# IntershopRAG Dark Mode Theme — "IDE-like" aesthetic
+# Configured per UX Specification (UX-DR1)
+
+base = "dark"
+
+# Background: Deep IDE dark
+backgroundColor = "#0E1117"
+
+# Secondary background (sidebar, expanders)
+secondaryBackgroundColor = "#262730"
+
+# Primary text: Near-white for readability
+textColor = "#FAFAFA"
+
+# Accent / Primary interactive colour: VS Code-style blue
+primaryColor = "#569CD6"
+
+# Font: System sans-serif stack for UI text
+font = "sans serif"

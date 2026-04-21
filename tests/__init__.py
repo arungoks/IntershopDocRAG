@@ -1,0 +1,1 @@
+# Initialize tests suite namespace

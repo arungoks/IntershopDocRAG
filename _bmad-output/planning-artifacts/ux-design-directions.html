@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntershopRAG UX Design Directions</title>
+    <style>
+        :root {
+            --bg-color: #0E1117;
+            --text-color: #FAFAFA;
+            --accent-color: #569CD6;
+            --chat-user-bg: #262730;
+            --chat-ai-bg: #0E1117;
+            --code-bg: #000000;
+        }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        .direction {
+            background-color: #1a1c23;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+        .direction h2 {
+            margin-top: 0;
+            color: var(--accent-color);
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        .mockup {
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .chat-bubble {
+            margin-bottom: 20px;
+            padding: 16px;
+            border-radius: 6px;
+            max-width: 80%;
+        }
+        .user-bubble {
+            background-color: var(--chat-user-bg);
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .ai-bubble {
+            background-color: var(--chat-ai-bg);
+            align-self: flex-start;
+            border-left: 4px solid var(--accent-color);
+        }
+        .citation-pill {
+            display: inline-block;
+            background-color: #2d2d2d;
+            border: 1px solid #4b4b4b;
+            color: #ccc;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .citation-pill:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        .code-block {
+            background-color: var(--code-bg);
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #d4d4d4;
+            margin: 10px 0;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            cursor: pointer;
+        }
+        .input-bar {
+            display: flex;
+            margin-top: 20px;
+        }
+        .input-bar input {
+            flex-grow: 1;
+            background-color: #262730;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        /* Variation Specifics */
+        .var-3 .mockup { flex-direction: row; }
+        .var-3 .sidebar { width: 300px; border-right: 1px solid #444; padding-right: 20px; margin-right: 20px; }
+        .var-3 .chat-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        
+        .var-4 * { font-family: 'Fira Code', monospace !important; }
+        .var-4 .mockup { background-color: #000; color: #0f0; border: 1px solid #0f0; }
+        .var-4 .ai-bubble { border-left: none; padding-left: 0; }
+        .var-4 .user-bubble { background-color: transparent; border: 1px dashed #0f0; color: #0f0; }
+        .var-4 .input-bar input { background: transparent; border-top: 1px solid #0f0; border-radius: 0; color: #0f0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IntershopRAG Design Directions</h1>
+        <p style="text-align: center; color: #aaa; margin-bottom: 40px;">Select an approach for how we structure the chat and citations.</p>
+
+        <!-- Direction 1 -->
+        <div class="direction var-1">
+            <h2>Direction 1: The "Perplexity Stack" (Sources First)</h2>
+            <p><strong>Focus:</strong> Immediate trust. Sources are prominently listed at the top of the AI's response before the text begins. Inline numbered citations `[1]` are used throughout.</p>
+            <div class="mockup">
+                <div>
+                    <div class="chat-bubble user-bubble">
+                        How do I create a new Pipeline in ICM?
+                    </div>
+                    <div class="chat-bubble ai-bubble">
+                        <div style="margin-bottom: 12px;">
+                            <span class="citation-pill">1. Pipeline Concepts</span>
+                            <span class="citation-pill">2. Creating Pipelines Guide</span>
+                        </div>
+                        <p>To create a new pipeline in Intershop Commerce Management (ICM), you must define the XML configuration in your cartridge. <span style="color:var(--accent-color)">[1]</span></p>
+                        <div class="code-block">
+                            <button class="copy-btn">Copy</button>
+                            &lt;pipeline:Pipeline xmlns:pipeline="http://www.intershop.de/pipeline/2010"&gt;<br>
+                            &nbsp;&nbsp;&lt;nodes&gt;...&lt;/nodes&gt;<br>
+                            &lt;/pipeline:Pipeline&gt;
+                        </div>
+                    </div>
+                </div>
+                <div class="input-bar">
+                    <input type="text" placeholder="Ask a technical question...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 2 -->
+        <div class="direction var-2">
+            <h2>Direction 2: The "Footnote Scholar"</h2>
+            <p><strong>Focus:</strong> Uninterrupted reading. The text flows naturally without inline numbers, and a detailed "References" section is appended at the bottom, similar to a wiki.</p>
+            <div class="mockup">
+                <div>
+                    <div class="chat-bubble user-bubble">
+                        How do I create a new Pipeline in ICM?
+                    </div>
+                    <div class="chat-bubble ai-bubble">
+                        <p>To create a new pipeline in Intershop Commerce Management (ICM), you must define the XML configuration in your cartridge. You initiate the start node and connect it to subsequent interaction nodes.</p>
+                        <hr style="border-color: #333; margin: 20px 0;">
+                        <span style="font-size: 0.8em; color: #aaa;">
+                            <strong>References:</strong><br>
+                            - <a href="#" style="color:var(--accent-color)">ICM Knowledge Base > Pipeline Concepts</a><br>
+                            - <a href="#" style="color:var(--accent-color)">ICM Knowledge Base > Creating Pipelines Guide</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="input-bar">
+                    <input type="text" placeholder="Ask a technical question...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 3 -->
+        <div class="direction var-3">
+            <h2>Direction 3: The "Dynamic Sidebar Context"</h2>
+            <p><strong>Focus:</strong> Deep dive capability. The chat remains central, but the left sidebar dynamically pops open to show the actual markdown excerpts from the Knowledge Base whenever the AI responds.</p>
+            <div class="mockup">
+                <div class="sidebar">
+                    <h4 style="color: #aaa; margin-top:0;">Retrieved Context</h4>
+                    <div style="background: #262730; padding: 10px; border-radius: 4px; font-size: 0.8em; margin-bottom:10px;">
+                        <strong>Pipeline Concepts.md</strong><br>
+                        "...Pipelines are the core execution concept in ICM, defined via XML definitions inside the cartridge path..."
+                    </div>
+                </div>
+                <div class="chat-area">
+                    <div>
+                        <div class="chat-bubble user-bubble">
+                            How do I create a new Pipeline in ICM?
+                        </div>
+                        <div class="chat-bubble ai-bubble">
+                            <p>To create a new pipeline in Intershop Commerce Management (ICM), you must define the XML configuration in your cartridge.</p>
+                        </div>
+                    </div>
+                    <div class="input-bar">
+                        <input type="text" placeholder="Ask a technical question...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 4 -->
+        <div class="direction var-4">
+            <h2>Direction 4: The "Terminal Hacker"</h2>
+            <p><strong>Focus:</strong> Ultra-minimalist. Completely abandons standard chat bubbles for a pure command-line stylistic approach. Only for power users.</p>
+            <div class="mockup">
+                <div>
+                    <div style="margin-bottom:20px;">
+                        &gt; How do I create a new Pipeline in ICM?
+                    </div>
+                    <div>
+                        <strong>[SYSTEM: Retrieved 2 sources]</strong><br><br>
+                        To create a new pipeline in Intershop Commerce Management (ICM), you must define the XML configuration in your cartridge.<br><br>
+                        <div style="border-left: 2px solid #0f0; padding-left: 10px; margin: 10px 0;">
+                            &lt;pipeline:Pipeline xmlns:pipeline="http://www.intershop.de/pipeline/2010"&gt;<br>
+                            &lt;/pipeline:Pipeline&gt;
+                        </div>
+                    </div>
+                </div>
+                <div class="input-bar">
+                    <input type="text" placeholder="> _">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
