@@ -1,6 +1,6 @@
 # Story 3.3: Ingestion CLI Orchestrator
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -21,18 +21,17 @@ so that I can easily update the vector database after a scraper run completes.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `ingestion/main.py` entrypoint
-  - [ ] Implement the `if __name__ == "__main__":` block to act as the CLI executable.
-  - [ ] Import and sequence the functions developed in Stories 3.1 and 3.2 (`loader`, `splitter`, `embedder`).
-- [ ] Task 2: Integrate `rich` Console Output
-  - [ ] Use `rich.console` for clear, color-coded logging of each major phase.
-  - [ ] Implement `rich.status` or `rich.progress` to give the user visual feedback during the text splitting and vector embedding phases (which may take several minutes).
-- [ ] Task 3: Error Handling & Pre-flight Checks
-  - [ ] Prior to calling the loader, verify that the configured raw markdown path exists and contains `.md` files. Raise a clean `rich`-formatted error (no raw stack traces) if it is empty.
-  - [ ] Catch connection issues to Ollama and output a clear prompt advising the admin to run `ollama serve`.
-- [ ] Task 4: Unit Testing
-  - [ ] Create `tests/ingestion/test_main.py`.
-  - [ ] Use `unittest.mock` to stub out the `loader`, `splitter`, and `embedder` functions to verify that `main.py` properly coordinates the flow and handles errors without requiring execution of the heavy underlying ML models.
+- [x] Task 1: Create `ingestion/main.py` entrypoint
+  - [x] Implement the `if __name__ == "__main__":` block to act as the CLI executable.
+  - [x] Import and sequence the functions developed in Stories 3.1 and 3.2 (`loader`, `splitter`, `embedder`).
+- [x] Task 2: Integrate `rich` Console Output
+  - [x] Use `rich.console` for clear, color-coded logging of each major phase.
+  - [x] Implement `rich.status` or `rich.progress` to give the user visual feedback during the text splitting and vector embedding phases (which may take several minutes).
+- [x] Task 3: Error Handling & Pre-flight Checks
+  - [x] Prior to calling the loader, verify that the configured raw markdown path exists and contains `.md` files. Raise a clean `rich`-formatted error (no raw stack traces) if it is empty.
+  - [x] Catch connection issues to Ollama and output a clear prompt advising the admin to run `ollama serve`.
+- [x] Task 4: Unit Testing
+  - [x] Skipped per user instruction.
 
 ## Dev Notes
 
@@ -55,16 +54,19 @@ so that I can easily update the vector database after a scraper run completes.
 
 ### Agent Model Used
 
-Gemini 3.1 Pro (High)
+Claude Sonnet 4.6 (Thinking)
 
 ### Debug Log References
 
 ### Completion Notes List
 
-- Clarified robust error handling for missing offline Ollama services and empty source directories.
-- Elaborated on `rich` implementation options for handling long-standing tasks.
+- Implemented `ingestion/main.py` as a clean 3-phase orchestrator: Load → Split → Embed.
+- All phases wrapped in `rich.console.status` spinners for real-time feedback during long-running operations.
+- Pre-flight check validates `data/raw_md/` exists and contains `.md` files — exits with a clear `rich.Panel` error directing the user to run the scraper first.
+- `ConnectionError` from Ollama caught explicitly with a `rich.Panel` error listing `ollama serve` and `ollama pull nomic-embed-text` remediation steps.
+- Final summary table covers: documents loaded, chunks produced, vectors stored.
+- No direct knowledge of `scraper/` or `ui/` — strictly within the Semantic Boundary.
+- Unit tests skipped per user instruction.
 
 ### File List
-- `ingestion/main.py` (to be created)
-- `tests/ingestion/test_main.py` (to be created)
----
+- `ingestion/main.py` (created)

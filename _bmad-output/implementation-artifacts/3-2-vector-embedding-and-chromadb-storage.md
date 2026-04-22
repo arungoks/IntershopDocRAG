@@ -1,6 +1,6 @@
 # Story 3.2: Vector Embedding & ChromaDB Storage
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -20,19 +20,18 @@ so that semantic search can be performed against the dataset locally.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Setup Local Ollama Embeddings
-  - [ ] Initialize `OllamaEmbeddings` using `langchain-ollama`.
-  - [ ] Read URL/Port (e.g. `localhost:11434`) and model name (`nomic-embed-text`) dynamically from `config.yaml`.
-- [ ] Task 2: Configure ChromaDB Local Instance
-  - [ ] Initialize ChromaDB using `langchain_chroma.Chroma` integration combined with a `PersistentClient` from the official `chromadb` package.
-  - [ ] Set the persist directory to `data/vectordb/` (driven by `config.yaml`).
-- [ ] Task 3: Implement Upsert Logic in `ingestion/embedder.py`
-  - [ ] Implement a function to embed and store chunks provided by Story 3.1's splitter.
-  - [ ] Generate deterministic IDs for each document chunk (e.g., using the `id` from YAML frontmatter concatenated with a chunk index or hash).
-  - [ ] Use `add_documents()` or an explicit `upsert` mechanism leveraging the deterministic IDs to prevent database duplication on subsequent ingestion runs.
-- [ ] Task 4: Unit Testing
-  - [ ] Add pytest tests in `tests/ingestion/test_embedder.py`.
-  - [ ] Mock the Chroma `PersistentClient` and the Ollama embedding API to test the logic without a live running database or Ollama server.
+- [x] Task 1: Setup Local Ollama Embeddings
+  - [x] Initialize `OllamaEmbeddings` using `langchain-ollama`.
+  - [x] Read URL/Port (e.g. `localhost:11434`) and model name (`nomic-embed-text`) dynamically from `config.yaml`.
+- [x] Task 2: Configure ChromaDB Local Instance
+  - [x] Initialize ChromaDB using `langchain_chroma.Chroma` integration combined with a `PersistentClient` from the official `chromadb` package.
+  - [x] Set the persist directory to `data/vectordb/` (driven by `config.yaml`).
+- [x] Task 3: Implement Upsert Logic in `ingestion/embedder.py`
+  - [x] Implement a function to embed and store chunks provided by Story 3.1's splitter.
+  - [x] Generate deterministic IDs for each document chunk (e.g., using the `id` from YAML frontmatter concatenated with a chunk index or hash).
+  - [x] Use `add_documents()` or an explicit `upsert` mechanism leveraging the deterministic IDs to prevent database duplication on subsequent ingestion runs.
+- [x] Task 4: Unit Testing
+  - [x] Skipped per user instruction.
 
 ## Dev Notes
 
@@ -58,16 +57,19 @@ so that semantic search can be performed against the dataset locally.
 
 ### Agent Model Used
 
-Gemini 3.1 Pro (High)
+Claude Sonnet 4.6 (Thinking)
 
 ### Debug Log References
 
 ### Completion Notes List
 
-- Addressed potential duplicate document issue via explicit deterministic IDs.
-- Highlighted the need for updated `langchain_chroma` and `langchain_ollama` integrations instead of legacy imports.
+- Implemented `ingestion/embedder.py` with `OllamaEmbeddings` (`langchain_ollama`) and `Chroma` (`langchain_chroma`).
+- All config values read from `config.yaml` with safe defaults matching NFRs (`nomic-embed-text`, port 11434, `data/vectordb`).
+- Deterministic chunk IDs using `{page_id}-chunk-{index}` pattern (falls back to SHA-256 hash for chunks with no `id` metadata) enabling idempotent reruns.
+- Batched embedding (default 100 chunks/batch) to avoid OOM on large corpora.
+- `data/vectordb/` directory auto-created via `Path.mkdir(parents=True, exist_ok=True)`.
+- 100% local — `ollama_base_url` always points to `localhost`, no cloud API leakage.
+- Unit tests skipped per user instruction.
 
 ### File List
-- `ingestion/embedder.py` (to be created/updated)
-- `tests/ingestion/test_embedder.py` (to be created)
----
+- `ingestion/embedder.py` (created)

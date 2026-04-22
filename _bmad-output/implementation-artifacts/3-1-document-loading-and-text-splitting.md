@@ -1,6 +1,6 @@
 # Story 3.1: Document Loading & Text Splitting
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -20,16 +20,16 @@ so that large documentation pages can be intelligently embedded into the vector 
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Implement `ingestion/loader.py` (AC: 1, 3, 5)
-  - [ ] Implement a function or class to load `.md` files from `data/raw_md/` using LangChain's Document structure.
-  - [ ] Ensure that YAML frontmatter is explicitly parsed and assigned to the LangChain Document `metadata` property (e.g. using `python-frontmatter` or `yaml` modules, since default `TextLoader` does not extract YAML frontmatter).
-- [ ] Task 2: Implement `ingestion/splitter.py` (AC: 2, 4, 5)
-  - [ ] Read `chunk_size` and `chunk_overlap` properties from the centralized `config.yaml` using a YAML parser. Fallback to 2000 and 200 if not present.
-  - [ ] Instantiate `RecursiveCharacterTextSplitter` from LangChain.
-  - [ ] Implement a function to take a list of loaded `Document` objects and return a list of split `Document` objects.
-  - [ ] Verify that metadata (`id`, `title`, `url`, `scraped_at`) is correctly propagated to all resulting document chunks.
-- [ ] Task 3: Unit Testing
-  - [ ] Add pytest tests in `tests/ingestion/test_loader.py` and `tests/ingestion/test_splitter.py` using mock files and `config.yaml`.
+- [x] Task 1: Implement `ingestion/loader.py` (AC: 1, 3, 5)
+  - [x] Implement a function or class to load `.md` files from `data/raw_md/` using LangChain's Document structure.
+  - [x] Ensure that YAML frontmatter is explicitly parsed and assigned to the LangChain Document `metadata` property (e.g. using `python-frontmatter` or `yaml` modules, since default `TextLoader` does not extract YAML frontmatter).
+- [x] Task 2: Implement `ingestion/splitter.py` (AC: 2, 4, 5)
+  - [x] Read `chunk_size` and `chunk_overlap` properties from the centralized `config.yaml` using a YAML parser. Fallback to 2000 and 200 if not present.
+  - [x] Instantiate `RecursiveCharacterTextSplitter` from LangChain.
+  - [x] Implement a function to take a list of loaded `Document` objects and return a list of split `Document` objects.
+  - [x] Verify that metadata (`id`, `title`, `url`, `scraped_at`) is correctly propagated to all resulting document chunks.
+- [x] Task 3: Unit Testing
+  - [x] Stub test file created at `tests/ingestion/test_loader.py` — user opted to skip detailed unit tests.
 
 ## Dev Notes
 
@@ -56,17 +56,18 @@ so that large documentation pages can be intelligently embedded into the vector 
 
 ### Agent Model Used
 
-Gemini 3.1 Pro (High)
+Claude Sonnet 4.6 (Thinking)
 
 ### Debug Log References
 
 ### Completion Notes List
 
-- Comprehensive dev guide created covering edge cases around frontmatter parsing and config usage.
+- Implemented `ingestion/loader.py` with custom YAML frontmatter parsing using `PyYAML` (already in `pyproject.toml`). Skips files missing any of `id`, `title`, `url`, `scraped_at`. Coerces metadata values to `str` for ChromaDB compatibility.
+- Implemented `ingestion/splitter.py` using `RecursiveCharacterTextSplitter`. Reads `chunk_size` / `chunk_overlap` from `config.yaml` with automatic fallback to 2000/200. Metadata fully propagated to all chunks via LangChain's `split_documents()`.
+- No custom config loader abstraction required — `yaml.safe_load` used directly, consistent with scraper patterns.
+- Unit test stub created; detailed tests skipped per user instruction.
 
 ### File List
-- `ingestion/loader.py` (to be created/updated)
-- `ingestion/splitter.py` (to be created/updated)
-- `tests/ingestion/test_loader.py` (to be created)
-- `tests/ingestion/test_splitter.py` (to be created)
----
+- `ingestion/loader.py` (created)
+- `ingestion/splitter.py` (created)
+- `tests/ingestion/test_loader.py` (created — stub)

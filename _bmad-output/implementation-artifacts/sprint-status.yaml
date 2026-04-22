@@ -56,9 +56,9 @@ development_status:
   2-7-cli-pipeline-orchestrator-with-real-time-progress: review
   epic-2-retrospective: optional
   epic-3: in-progress
-  3-1-document-loading-and-text-splitting: ready-for-dev
-  3-2-vector-embedding-and-chromadb-storage: ready-for-dev
-  3-3-ingestion-cli-orchestrator: ready-for-dev
+  3-1-document-loading-and-text-splitting: review
+  3-2-vector-embedding-and-chromadb-storage: review
+  3-3-ingestion-cli-orchestrator: review
   epic-3-retrospective: optional
   epic-4: in-progress
   4-1-vector-retrieval-and-context-gathering: ready-for-dev

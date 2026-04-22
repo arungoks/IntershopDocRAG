@@ -39,4 +39,5 @@ full_pytest.txt
 pytest_error*
 pytest_results.txt
 tmp_*.txt
+error.txt
 .gemini/
