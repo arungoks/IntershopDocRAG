@@ -1,0 +1,143 @@
+---
+id: 'c9fbd2bbf5c8a46048fe5ae2a1f55eae'
+title: 'Feature List'
+url: 'https://knowledge.intershop.com/kb/index.php/Display/31E372'
+scraped_at: '2026-04-21T05:34:33.157245+00:00'
+---
+Release 5.3 of the Intershop Progressive Web App comes with basic B2C and B2B e-commerce features and – more importantly – it is a reference application with architectural best practices for developers for topics like, e.g., initial page loads, server-side rendering, SEO, or modularization. Based on the reference application and the full set of synaptic commerce® APIs for B2C and B2B features (like quoting, cost center, etc.) developers can easily tailor the Intershop Progressive Web App to their specific needs.
+
+New features of the current release are marked **bold**.
+
+| Benefits for Customers | Benefits for Companies | Benefits for Developers |
+|---|---|---|
+Smooth and responsive customer experience. This applies in particular to mobile devices with limited bandwidth. Since only data is transferred and not complete HTML pages, the response time of the pages is much shorter. With data held in the browser context, even page transitions are possible that do not require any communication with the server. | The digital world is developing rapidly. Mobile technologies, new end devices, and touch points open up new possibilities for companies to reach their customers via different channels and touchpoints. It is, therefore, worth switching to new adaptable strategies. inSPIRED Progressive Web App is the first step towards digital success. The top priorities are: adaptability, user-friendliness and flexible use on a wide variety of devices and low programmatic development and operating costs. | By using widely accepted technologies such as Angular, web developers can build on their existing knowledge and make Intershop Storefront development easier than ever before. |
+
+## Intershop Progressive Web Application | |
+|---|---|
+Toolset | Web Developers can use the Intershop PWA to implement storefront applications based on the Intershop Commerce Management (ICM) WebShop REST API and/or 3rd Party Systems. |
+| Templates | Templates contain the HTML that is rendered for the browser and displays the UI. |
+| Services | Services implement business functionality using TypeScript. Services should have a single responsibility by encapsulating all functionality required in it. The API to a service should be as narrow as possible because services are used throughout the application. It is also possible to combine functionality of multiple services in another more general service if necessary. |
+| Components | Components are small and (mostly) independent bridges between services and templates that prepare data for display in templates and collect input from the user to interact with services. Data Binding links the template with methods and properties from the component. The components handling the templates should only handle view logic and should not implement too much specific functionalities. If the component does more than just providing data for the template, it might be better to transfer this to service instances instead. Multiple components and their templates are then composed to pages. |
+| Routes | Routes enable navigation from one view to the next as users perform application tasks. Routes can pass optional parameters along to the supporting view component that help it decide what specific content to present. |
+| Models | Models are definitions of the data that are handled within the application. |
+| Store | The store is the central representation of all data of the application. |
+| State | The state is seen as the single source of truth for getting information of the current application state. All information should be held in the store. There is only one immutable state per application, which is composed of sub-states. To get information out of the state, selectors have to be used. Changing the state can only be done by dispatching actions. |
+| Selectors | Selectors are used to retrieve information about the current state from the store. The selectors are grouped in a separate file. They always start the query from the root of the state tree and navigate to the required information. Selectors return Observables which can be held in containers and be bound to in templates. |
+| Actions | Actions are used to alter the current state via reducers or trigger effects. Action creators are held in a separate file. The action class contains a type of the action and an optional payload. To alter the state synchronously, reducers have to be composed. To alter the state asynchronously, effects are used. |
+| Reducers | Reducers alter the state synchronously. They take the previous state and an incoming action to compose a new state. This state is then published and all listening components react automatically to the new state information. Reducers should be simple operations which are easily testable. |
+| Effects | Effects use incoming actions to trigger asynchronous tasks like querying REST resources. After successful or erroneous completion an effect might trigger another action as a way to alter the current state of the application. |
+| Schematics | Schematics allow for easy creation of code artifacts that automatically comply to the coding guidelines of the project, saving a lot of time for repetitive tasks and increasing code quality. |
+| Client-side error tracking | JavaScript errors occurring during the usage of the Intershop Progressive Web App can be tracked via integration of a 3rd party tracking tool (Sentry). |
+| Localization | Intershop Progressive Web App uses a mix of Angular's internationalization tools (i18n) and the ngx-translate internationalization library for localization. |
+| Server-side rendering | With Angular Universal a static app version is generated that is easily searchable, linkable, and navigable without JavaScript. It also makes a site preview available since each URL returns a fully-rendered page. Server-side rendering can be configured differently for different user agents, e.g., being enabled for search engines but disabled for end users. |
+| Integrated Content Management | Content managed in Intershop Commerce Management can be integrated into the Intershop Progressive Web App. The content model and integration points in the storefront can be customized according to project-specific needs. |
+| Deployment Scripts | Templates for Kubernetes Deployments and DevOps for Microsoft Azure are supplied as part of the project. |
+| Themes | Intershop Progressive Web App provides multiple themes support and a configurable theme. |
+
+## Functional Scope | |
+|---|---|
+Storefront | The Intershop Progressive Web App is an essential component of Intershop's new cloud strategy. Due to the clear separation of the Intershop Commerce Platform back-end from the visualization layer and the introduction of clearly defined synaptic commerce® APIs, partners and customers can design and customize the Intershop Storefront easier than ever before. Extensive knowledge of ISML and pipelines or the deployment of new layouts in the Intershop Commerce Management System are no longer necessary. |
+Shopping Experience | |
+| Catalog Browsing | Customers can browse categories by different means, like category navigation, breadcrumbs, or category lists. |
+| Product Browsing | Products can be browsed by category and filtered via search filters (supported filter types are dropdown and single or multi-select checkbox). Product lists support endless scrolling. Product lists can be sorted by different sorting criteria (relevance, price, etc.) |
+| Search | Customers can search products by SKU or search terms found in the product name, description, or any other attribute that is indexed in the search index. Suggested search supports search term suggestions. Search results can be filtered via search filters (supported filter types are dropdown, single or multi-select swatch image, and single or multi-select checkbox). Search supports customer-specific assortments and displays only search results that are valid for the storefront user. |
+| Product Display & Actions | The following product data can be displayed:
+The following actions can be performed with products:
+|
+| Product Variations | Products with different variations are displayed in product lists, product detail pages, cart, wish list, quote details and order history. The selection of the available options is supported via dropdown, swatch images/ HTML color codes and their combinations. Advanced variation handling for complex products with a lot of variations can be enabled in the ICM backoffice (Channel Preferences > Product Variations > List View). Data type number and complex values of variation attributes are supported. |
+| Product Bundles | Product bundles with all related bundled products are displayed on product detail pages and in the shopping cart. |
+| Retail Sets | Retail sets with all related items are displayed on product detail pages and can be added to the cart all at once or individually. |
+| Personalized Product and Category Data | Category, product, and promotion data are displayed in a personalized way for the storefront user. |
+| Scaled Prices | Scaled prices are displayed in product lists, product detail pages, product compare pages, wish lists (B2C), and order templates (B2B), and are used throughout the checkout process. |
+| Configurable Products | Support for configurable products via Tacton CPQ integration:
+|
+| Related Products | Related products of a certain product are displayed on product detail pages. The following types are supported:
+|
+| Promotions | Promotion messages and prices are displayed in product detail, product listing, cart and checkout pages. |
+Copilot | Intershop Copilot, an AI-supported digital sales and service assistant, is integrated. |
+| Store Locator Functionality | Store Locator functionality is available and configurable via feature toggle. Store Locator with Google Maps integration is activated by default for the B2B theme. Store Finder without Google Maps integration is the default configuration for the B2C theme. |
+| Maintenance Page | The maintenance page is shown if the ICM server is in maintenance mode (REST request response with a 503 error). |
+| Accessibility | The following criteria regarding digital accessibility are implemented:
+|
+Checkout | |
+| Shopping Cart | The following data of the shopping cart is displayed:
+The following actions can be performed in the shopping cart:
+|
+| Quick Order | B2B customers can add multiple products to the cart at once by entering product ID and quantity. By default, the user can add five products. Customers can extend the form with additional lines, each with input fields for product ID and quantity. Using the CSV upload, large numbers of products can be added in one step. |
+| Requisitions | B2B customers can create a requisition, which starts an approval process. |
+| Addresses | Invoice and shipping addresses can be selected, added, and modified during checkout. Addresses can be managed in My Account as well. Addresses can be checked by AddressDoctor. |
+| Shipping | Shipping options including shipping costs, delivery time, and descriptions of the options are displayed and can be selected during checkout. B2B customers will be able to send messages to merchants. |
+| Payment | Payment options are displayed and can be selected during checkout. The following payment methods are currently supported:
+Payment details can be saved, and saved payment details can be selected during checkout. The fast checkout payment functionality is available in the shopping cart. Note Most payment methods require payment connector integration with a 3rd party payment service provider. For more information regarding available payment service provider integrations, see
+|
+| Review | All details of the order are displayed before order placement:
+The terms and conditions need to be accepted before placing an order. |
+| Receipt | A summary of the order is displayed after placing an order, including:
+|
+| Contact Us | Customers can send a request to customer service via the Contact Us form, specifying the reason or type of request, request details and contact information like phone number, e-mail address, etc. |
+| Guest Checkout | Customers can perform a checkout without registering at the store. |
+| OCI Punchout (B2B) | B2B customers can integrate the storefront into their procurement solution via OCI Punchout. The following features are supported:
+|
+| cXML Punchout (B2B) | B2B customers can integrate the storefront into their procurement solution via cXML Punchout. The following features are supported:
+|
+My Account | |
+| Login & Registration | The following actions are supported:
+|
+| SSO Login | Login via an external identity provider is supported. Additional users can be invited and can create a new account via SSO.
+|
+| My Account Dashboard | The My Account dashboard provides a navigation overview and the following widgets:
+|
+Purchases | |
+| Order History | Customers can view their order history (order list filtering) and order details of all orders. Customer can reorder products of an order from order detail page. B2B customers can view orders from all buyers in their organization and filter by a specific buyer. |
+| Wish Lists | Customers can view a list of their wish lists and wish list details of all wish lists. Customers can create, edit and delete wish lists, set a preferred wish list, add and remove products from wish lists, move products between wish lists, and add products to the cart from wish lists. Customers can share wish lists with other users with a link. |
+| Requisitions | B2B customers can view their requisitions divided into the following areas:
+|
+| Quoting | Customers can view a list of their quotes and quote details of all quotes. |
+| Order Templates | B2B customers can view a list of their order templates and details of all order templates. Customers can create, edit, and delete order templates, add and remove products from order templates, move products between order templates, and add products to the cart from order templates. |
+My Approvals | |
+| Approvals | Buyer approvers or cost center managers of B2B organizations can view the requisitions that are supposed to be processed or are already processed divided into the following areas: Buyer approvers or cost center managers of B2B organizations can approve and reject requisitions. |
+My Profile | |
+| Profile Settings | Customers can view and edit the following profile data:
+|
+| Payment | Payment details can be saved during checkout and viewed and deleted in the My Account area. |
+| Notifications | Product notifications for availability in stock and for prices can be created on product detail page and viewed, updated, and deleted in the My Account area. |
+My Organization | |
+| Addresses | Addresses can be created, edited, and deleted. Preferred shipping and invoice addresses can be defined. Addresses can be checked by AddressDoctor. |
+| User Management | Administrators of B2B customer organizations can view, add, edit, and delete company account users and manage roles and budget limits of users. |
+| Cost Center Management | Administrators of B2B customer organizations or cost center managers can view, add, edit, and delete cost centers, assign users to the cost center, define the tax type for cost center budgets, and manage cost center budgets as well as user-specific cost center budgets. |
+| Punchout | Administrators of B2B customer organizations can view, add, edit, and delete OCI or cXML Punchout users in order to automatically log in users to the storefront when opening a Punchout session. |
+Content Management | |
+| Pages/Includes | The following pages of the storefront can be managed by the integrated Content Management System (CMS):
+On all other pages/routes the content is managed via Content Includes or View Contexts (Includes). |
+| Components | The following CMS components are supported within the storefront:
+|
+| View Contexts | View Contexts are supported in the storefront. |
+| Personalized Content | Personalized content can be displayed specifically for different customer segments. |
+| Demo Content | Different places within category, family, product, header navigation, search, and basket page are provided to present CMS demo content. |
+| Design Preview | The Design View Tab in ICM can be used to preview content changes in the PWA, but without any direct editing capabilities. |
+| Design View Support | The PWA is ready to be rendered in the Design View (Beta version). |
+Localization | |
+| Preferred Language | The user's preferred language can be saved as a cookie. |
+| Manage Translations | All texts of the PWA can be managed and translated via the Intershop Commerce Management back office. Text changes are immediately reflected within the PWA without the need for a deployment. |
+Analytics | |
+| Tracking Integration | Analytics tools can be integrated via Google Tag Manager. Tracking of page visits via Google Analytics are supported. |
+Search Engine Optimization | |
+| Page Title and Meta Tags | Page Title and Meta Tags are set in the PWA. For product and category pages the values provided via REST API are used. |
+| SEO friendly localized URLs | SEO friendly localized URLs are supported for category pages, product list pages and product detail pages, including the full category path. |
+Privacy | |
+| Cookie Information | Customers receive information on the use of cookies and can configure their cookie consent. |
+Configuration | |
+| Multi-Site Support | One storefront installation can be used to connect to several Intershop Commerce Management channels. Mapping rules can be defined for incoming URLs to map to respective REST endpoints. |
+| Multi-System Support | One PWA installation can be connected to several Intershop Commerce Management systems, e.g. to edit and live clusters within different environments. |
+| Multi-Theme Support | One storefront installation can contain several different themes which can be switched for a different appearance. |
+| Hybrid Approach | It is possible to run the PWA in a hybrid mode with the Responsive Starter Store. Some parts of the storefront can run in the PWA and others in the Responsive Starter Store. Linking between the two storefront parts is supported as well as handover of users (authentication token) and baskets. It is possible to configure which features are supported by which storefront.
+|
+| Feature Toggles | Storefront features can be activated and deactivated via configuration of feature toggles. The following features can be activated or deactivated: General:
+B2B features:
+B2C features:
+Third-party integrations:
+|
+Customer Engagement Center (CEC) | |
+| Impersonation support | A contact center agent can log in to the PWA as a user without having the user's credentials to see what the page looks like for the user. |
+
+The information provided in the Knowledge Base may not be applicable to all systems and situations. Intershop Communications will not be liable to any party for any direct or indirect damages resulting from the use of the Customer Support section of the Intershop Corporate Website, including, without limitation, any lost profits, business interruption, loss of programs or other data on your information handling system.

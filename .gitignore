@@ -15,11 +15,9 @@ creds.txt
 # IntershopRAG: Scraper state checkpoint (contains runtime URL status, not source code)
 scrape_state.json
 
-# IntershopRAG: Local data directory (raw Markdown + ChromaDB vector store)
-# These directories are large and machine-specific
-data/
-!data/raw_md/.gitkeep
-!data/vectordb/.gitkeep
+# IntershopRAG: Local data directory
+# We track raw Markdown files for portability; vectordb is excluded due to size.
+data/vectordb/
 
 # Streamlit runtime files
 .streamlit/*.log
