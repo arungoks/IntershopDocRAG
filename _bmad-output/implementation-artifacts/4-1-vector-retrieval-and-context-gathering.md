@@ -1,6 +1,6 @@
 # Story 4.1: Vector Retrieval & Context Gathering
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -21,19 +21,19 @@ so that the LLM has accurate, proprietary context to answer my question.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Setup Local Chroma Retriever
-  - [ ] Initialize `OllamaEmbeddings` configured to point to `localhost:11434` using the `nomic-embed-text` model (values from `config.yaml`).
-  - [ ] Initialize `langchain_chroma.Chroma` pointing to `data/vectordb/`.
-  - [ ] Configure the retriever to return `k` top documents (retrieve top `k` from `config.yaml`, default to 5).
-- [ ] Task 2: Implement Context Formatting
-  - [ ] Implement formatting logic (`format_docs`) that takes a list of retrieved LangChain `Document` chunks and concatenates them into a single context string.
-  - [ ] Guarantee that the formatting includes the `title` and `url` from the document `metadata` so the LLM knows the source of the text.
-- [ ] Task 3: Error / Empty State Handling
-  - [ ] Detect if the retriever returns zero matches or if ChromaDB throws an explicitly empty collection error.
-  - [ ] Return a structured "No context found" indication or string explicitly informing the pipeline that context is unavailable.
-- [ ] Task 4: Streamlit Resource Preparation
-  - [ ] Wrap the retriever/DB initialization in a caching mechanism (e.g., preparing it to be wrapped with `@st.cache_resource` in the main app file) so Streamlit does not reload the massive db index on every query.
-- [ ] Task 5: Unit Testing
+- [x] Task 1: Setup Local Chroma Retriever
+  - [x] Initialize `OllamaEmbeddings` configured to point to `localhost:11434` using the `nomic-embed-text` model (values from `config.yaml`).
+  - [x] Initialize `langchain_chroma.Chroma` pointing to `data/vectordb/`.
+  - [x] Configure the retriever to return `k` top documents (retrieve top `k` from `config.yaml`, default to 5).
+- [x] Task 2: Implement Context Formatting
+  - [x] Implement formatting logic (`format_docs`) that takes a list of retrieved LangChain `Document` chunks and concatenates them into a single context string.
+  - [x] Guarantee that the formatting includes the `title` and `url` from the document `metadata` so the LLM knows the source of the text.
+- [x] Task 3: Error / Empty State Handling
+  - [x] Detect if the retriever returns zero matches or if ChromaDB throws an explicitly empty collection error.
+  - [x] Return a structured "No context found" indication or string explicitly informing the pipeline that context is unavailable.
+- [x] Task 4: Streamlit Resource Preparation
+  - [x] `build_retriever()` is a standalone function ready to be decorated with `@st.cache_resource` in `ui/app.py`. No `st.*` imports in `chain.py`.
+- [ ] Task 5: Unit Testing _(skipped per user instruction)_
   - [ ] Add tests in `tests/ui/test_chain.py`.
   - [ ] Mock the LangChain `Chroma` retriever to ensure formatting and error handling behave as expected without requiring disk I/O.
 
@@ -58,16 +58,19 @@ so that the LLM has accurate, proprietary context to answer my question.
 
 ### Agent Model Used
 
-Gemini 3.1 Pro (High)
+Claude Sonnet 4.6 (Thinking)
 
 ### Debug Log References
 
 ### Completion Notes List
 
-- Addressed critical Streamlit caching constraint for database connection efficiency.
-- Re-enforced architectural boundary rules preventing UI components leaking into the backend chain logic.
+- Created `ui/chain.py` with `_load_config()`, `build_retriever()`, `format_docs()`, and `retrieve_context()` functions.
+- `build_retriever()` is fully Streamlit-agnostic; caller wraps it with `@st.cache_resource` to avoid repeated DB initialisation on Streamlit reruns.
+- `NO_CONTEXT_SENTINEL` constant (`"__NO_CONTEXT_FOUND__"`) used to signal empty retrieval results — downstream chain and UI components check for this string.
+- Config values (`ollama_port`, `embedding_model`, `chroma_db_path`, `retrieval_k`) loaded from `config.yaml`; `retrieval_k` defaults to 5 if not present (backward-compatible).
+- `retrieve_context()` swallows Chroma/Ollama exceptions and returns the sentinel + empty list, allowing `ui/app.py` to show a user-friendly `st.error()`.
+- Unit tests skipped per user instruction.
 
 ### File List
-- `ui/chain.py` (to be created)
-- `tests/ui/test_chain.py` (to be created)
+- `ui/chain.py` (created)
 ---

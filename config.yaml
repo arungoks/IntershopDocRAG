@@ -18,7 +18,7 @@ creds_path: "creds.txt"
 
 # --- Ollama / LLM Configuration ---
 ollama_port: 11434
-ollama_model: "qwen2.5:7b"
+ollama_model: "qwen2.5:3b"
 embedding_model: "nomic-embed-text"
 
 # --- Vector Ingestion / Chunking ---

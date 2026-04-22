@@ -61,16 +61,16 @@ development_status:
   3-3-ingestion-cli-orchestrator: review
   epic-3-retrospective: optional
   epic-4: in-progress
-  4-1-vector-retrieval-and-context-gathering: ready-for-dev
-  4-2-grounded-answer-generation-lcel-chain: backlog
-  4-3-conversational-memory-buffer: backlog
-  4-4-basic-streamlit-chat-ui: backlog
-  4-5-raw-citation-display: backlog
+  4-1-vector-retrieval-and-context-gathering: review
+  4-2-grounded-answer-generation-lcel-chain: review
+  4-3-conversational-memory-buffer: review
+  4-4-basic-streamlit-chat-ui: review
+  4-5-raw-citation-display: review
   epic-4-retrospective: optional
-  epic-5: backlog
-  5-1-theming-and-typography-adjustments: backlog
-  5-2-enhanced-citation-footer-component: backlog
-  5-3-empty-state-and-conversation-reset: backlog
-  5-4-loading-feedback-and-error-recovery-states: backlog
-  5-5-form-interaction-and-accessibility-refinements: backlog
+  epic-5: in-progress
+  5-1-theming-and-typography-adjustments: ready-for-dev
+  5-2-enhanced-citation-footer-component: ready-for-dev
+  5-3-empty-state-and-conversation-reset: ready-for-dev
+  5-4-loading-feedback-and-error-recovery-states: ready-for-dev
+  5-5-form-interaction-and-accessibility-refinements: ready-for-dev
   epic-5-retrospective: optional
