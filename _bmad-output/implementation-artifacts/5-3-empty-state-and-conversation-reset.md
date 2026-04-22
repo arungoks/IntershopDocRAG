@@ -1,6 +1,6 @@
 # Story 5.3: Empty State & Conversation Reset
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -21,17 +21,18 @@ so that I know exactly how to query the system and can avoid "context bleed" bet
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create Sidebar Reset Functionality
-  - [ ] Update `ui/app.py` to include `st.sidebar`.
-  - [ ] Add a button: `st.sidebar.button("Clear Chat History", use_container_width=True)`.
-  - [ ] Bind the button to a callback or inline logic that clears `st.session_state.messages` and calls `st.rerun()`.
-- [ ] Task 2: Implement Empty State Layout
-  - [ ] In `ui/app.py`, detect when `st.session_state.messages` is empty.
-  - [ ] When empty, render a Welcome header (e.g., `st.markdown("### Welcome to IntershopRAG")`).
-  - [ ] Add introductory text explaining the tool's purpose.
-- [ ] Task 3: Implement Clickable Example Prompts
-  - [ ] Render 2-3 example prompt buttons (e.g., "Explain the Pipeline framework", "How do I handle REST API errors?").
-  - [ ] Implement logic so that clicking an example button simulates a user submission: it appends the prompt to `st.session_state.messages` and immediately triggers the query processing loop (or `st.rerun()`).
+- [x] Task 1: Create Sidebar Reset Functionality
+  - [x] `st.sidebar` added to `ui/app.py` with a title, caption, and dividers.
+  - [x] `st.button("\U0001f5d1\ufe0f Clear Chat History", use_container_width=True)` added.
+  - [x] Button clears `st.session_state.messages` and `st.session_state.pending_query`, then calls `st.rerun()`.
+- [x] Task 2: Implement Empty State Layout
+  - [x] `if not st.session_state.messages:` guard renders the empty state.
+  - [x] Welcome header `### \U0001f44b Welcome to IntershopRAG` rendered.
+  - [x] Introductory markdown explains the tool purpose and grounded sourcing.
+- [x] Task 3: Implement Clickable Example Prompts
+  - [x] Three example prompts defined: Pipeline Framework, REST API errors, cartridge extension.
+  - [x] Buttons rendered in equal-width columns; clicking sets `st.session_state.pending_query` and calls `st.rerun()`.
+  - [x] Main processing loop resolves `user_query = st.session_state.pending_query or chat_input_query`, consuming both input sources identically.
 
 ## Dev Notes
 
@@ -52,15 +53,17 @@ so that I know exactly how to query the system and can avoid "context bleed" bet
 
 ### Agent Model Used
 
-Gemini 3.1 Pro (High)
+Claude Sonnet 4.6 (Thinking)
 
 ### Debug Log References
 
 ### Completion Notes List
 
-- Addressed the Streamlit limitation regarding `chat_input` programmatic population.
-- Defined the logic for simulated submissions via `st.button`.
+- Added `st.session_state.pending_query` to bridge the gap between example-prompt button clicks and the main query processing loop — since `st.chat_input` cannot be programmatically populated (per dev notes).
+- Example buttons call `st.rerun()` after setting `pending_query`; on the next rerun `pending_query` takes priority over `chat_input`, then is cleared immediately after consumption.
+- Sidebar contains the Clear History button with `use_container_width=True`, branding text, and a usage caption.
+- Empty state is hidden once messages exist, so it never competes visually with active conversation.
 
 ### File List
 
-- `ui/app.py` (to be updated)
+- `ui/app.py` (rewritten)

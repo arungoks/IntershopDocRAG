@@ -68,9 +68,9 @@ development_status:
   4-5-raw-citation-display: review
   epic-4-retrospective: optional
   epic-5: in-progress
-  5-1-theming-and-typography-adjustments: ready-for-dev
-  5-2-enhanced-citation-footer-component: ready-for-dev
-  5-3-empty-state-and-conversation-reset: ready-for-dev
-  5-4-loading-feedback-and-error-recovery-states: ready-for-dev
-  5-5-form-interaction-and-accessibility-refinements: ready-for-dev
+  5-1-theming-and-typography-adjustments: review
+  5-2-enhanced-citation-footer-component: review
+  5-3-empty-state-and-conversation-reset: review
+  5-4-loading-feedback-and-error-recovery-states: review
+  5-5-form-interaction-and-accessibility-refinements: review
   epic-5-retrospective: optional

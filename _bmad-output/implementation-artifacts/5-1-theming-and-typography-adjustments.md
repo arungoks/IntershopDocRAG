@@ -1,6 +1,6 @@
 # Story 5.1: Theming & Typography Adjustments
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -20,18 +20,18 @@ so that the application feels like a modern IDE and minimizes eye strain.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Configure Streamlit Theme
-  - [ ] Locate or create `.streamlit/config.toml` in the project root.
-  - [ ] Add the `[theme]` section block.
-  - [ ] Set `base="dark"`.
-  - [ ] Set `primaryColor="#569CD6"` (IDE Accent Blue).
-  - [ ] Set `backgroundColor="#0E1117"` (Deep Dark Background).
-  - [ ] Set `secondaryBackgroundColor="#262730"` (for sidebars/chat inputs).
-  - [ ] Set `textColor="#FAFAFA"` (High Contrast Off-White).
-- [ ] Task 2: Typography Configuration
-  - [ ] Set `font="sans serif"` in the `[theme]` block.
-- [ ] Task 3: Visual Verification
-  - [ ] Ensure that code blocks natively rendered by Streamlit (`st.markdown`) use a distinct monospace font compared to the standard sans-serif body text.
+- [x] Task 1: Configure Streamlit Theme
+  - [x] `.streamlit/config.toml` already exists in the project root.
+  - [x] `[theme]` section block present.
+  - [x] `base="dark"` set.
+  - [x] `primaryColor="#569CD6"` set.
+  - [x] `backgroundColor="#0E1117"` set.
+  - [x] `secondaryBackgroundColor="#262730"` set.
+  - [x] `textColor="#FAFAFA"` set.
+- [x] Task 2: Typography Configuration
+  - [x] `font="sans serif"` set in the `[theme]` block.
+- [x] Task 3: Visual Verification
+  - [x] Streamlit's markdown parser natively wraps code blocks in monospace `<pre><code>` — no extra config needed.
 
 ## Dev Notes
 
@@ -52,15 +52,15 @@ so that the application feels like a modern IDE and minimizes eye strain.
 
 ### Agent Model Used
 
-Gemini 3.1 Pro (High)
+Claude Sonnet 4.6 (Thinking)
 
 ### Debug Log References
 
 ### Completion Notes List
 
-- Translated UX specifications directly into Streamlit TOML config values.
-- Noted that Streamlit natively handles the monospace code block rendering.
+- `.streamlit/config.toml` was already fully configured from the project foundation work (Epic 1). All required theme values (`base`, `backgroundColor`, `secondaryBackgroundColor`, `textColor`, `primaryColor`, `font`) were present and correct — zero changes needed.
+- No Python code modifications required per story dev notes.
 
 ### File List
 
-- `.streamlit/config.toml` (to be created/updated)
+- `.streamlit/config.toml` (already complete — no changes made)

@@ -1,6 +1,6 @@
 # Story 5.2: Enhanced Citation Footer Component
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -21,17 +21,17 @@ so that I can easily scan and click the exact "proof" links verifying the AI's a
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create Citation Helper Module
-  - [ ] Create `ui/citations.py`.
-  - [ ] Implement a function (e.g., `format_citation_footer(docs) -> str`) that accepts LangChain `Document` objects.
-  - [ ] Ensure the function deduplicates chunks from the same page using the `url` metadata field.
-- [ ] Task 2: Implement HTML/Markdown Styling
-  - [ ] Begin the returned string with `\n\n---\n**Sources:**\n`.
-  - [ ] Wrap the citation list in an HTML block with sub-text styling: `<div style="font-size: 0.8em; color: gray;">`.
-  - [ ] Use raw HTML `<a>` tags instead of markdown links to enforce `target="_blank"`. Example: `<a href="{url}" target="_blank">{title}</a>`.
-- [ ] Task 3: Integrate with Chat UI
-  - [ ] In `ui/app.py`, replace the raw citation building logic from 4.5 with a call to `format_citation_footer`.
-  - [ ] Ensure that when the citation string is rendered or appended to session state, `st.markdown(..., unsafe_allow_html=True)` is used, otherwise the HTML tags will render as raw text.
+- [x] Task 1: Create Citation Helper Module
+  - [x] `ui/citations.py` already existed from Story 4.5; rewritten in-place.
+  - [x] `format_citation_footer(docs)` implemented — accepts LangChain `Document` objects.
+  - [x] Deduplication by `url` metadata field (falls back to `title`).
+- [x] Task 2: Implement HTML/Markdown Styling
+  - [x] Footer begins with `\n\n---\n**Sources:**\n`.
+  - [x] Citation list wrapped in `<div style="font-size: 0.8em; color: gray;">` block.
+  - [x] Each entry uses `<a href="{url}" target="_blank" rel="noopener noreferrer">{title}</a>` for reliable new-tab opening.
+- [x] Task 3: Integrate with Chat UI
+  - [x] `ui/app.py` import changed from `format_citations` to `format_citation_footer`.
+  - [x] Both citation render call and history loop now use `st.markdown(..., unsafe_allow_html=True)` so HTML tags are parsed rather than shown as raw text.
 
 ## Dev Notes
 
@@ -53,16 +53,18 @@ so that I can easily scan and click the exact "proof" links verifying the AI's a
 
 ### Agent Model Used
 
-Gemini 3.1 Pro (High)
+Claude Sonnet 4.6 (Thinking)
 
 ### Debug Log References
 
 ### Completion Notes List
 
-- Detailed the technical constraint around Streamlit markdown links vs HTML anchor tags.
-- Solidified the architecture pattern of using dedicated UI helper modules.
+- Rewrote `ui/citations.py` in-place: replaced `format_citations` with `format_citation_footer` which produces a `---` separator, bold **Sources:** label, and a gray 0.8em `<div><ul>` block with `<a target="_blank" rel="noopener noreferrer">` anchor tags.
+- Kept `format_citations` as a backward-compat alias pointing to `format_citation_footer`.
+- Updated `ui/app.py`: import now references `format_citation_footer`; both the live render and the history rerender loop use `unsafe_allow_html=True`.
+- Also fixed stale model name in the Ollama error message (`qwen2.5:7b` → `qwen2.5:3b`) to match `config.yaml`.
 
 ### File List
 
-- `ui/citations.py` (to be created)
-- `ui/app.py` (to be updated)
+- `ui/citations.py` (rewritten)
+- `ui/app.py` (updated)
